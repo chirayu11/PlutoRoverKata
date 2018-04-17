@@ -39,6 +39,10 @@ namespace Rover.Tests
         [TestCase("F", 1, 1, Direction.East, 2, 1)]
         [TestCase("F", 1, 1, Direction.South, 1, 0)]
         [TestCase("F", 1, 1, Direction.West, 0, 1)]
+        [TestCase("B", 1, 1, Direction.North, 1, 0)]
+        [TestCase("B", 1, 1, Direction.East, 0, 1)]
+        [TestCase("B", 1, 1, Direction.South, 1, 2)]
+        [TestCase("B", 1, 1, Direction.West, 2, 1)]
         public void MoveForwardBackward_MovesOneInTheCorrectDirection(
                     string command, int startX, int startY, Direction facing, int expectedX, int expectedY)
         {
