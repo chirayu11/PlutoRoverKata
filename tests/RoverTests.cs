@@ -134,7 +134,7 @@ namespace Rover.Tests
         [TestCase("FF", 1, 2, Direction.East, 1, 2)]
         [TestCase("FF", 2, 1, Direction.South, 2, 1)]
         [TestCase("FF", 1, 2, Direction.West, 1, 2)]
-        public void MoveForwardBackward_MovesToLastPossiblePoint_IfItHitsAnObstacle(
+        public void MoveForwardBackward_MovesToLastPossiblePointAndThrowsException_IfItHitsAnObstacle(
             string command, int startX, int startY, Direction facing, int expectedX, int expectedY)
         {
             // Given
@@ -146,10 +146,8 @@ namespace Rover.Tests
 
             var roverController = new RoverController(rover, terrain);
 
-            // When
-            roverController.Execute(command);
-
-            // Then
+            // When and Then
+            Assert.Throws<ObstacleHitException>(() => roverController.Execute(command));
             Assert.AreEqual(expectedX, rover.X);
             Assert.AreEqual(expectedY, rover.Y);
             Assert.AreEqual(facing, rover.Direction);

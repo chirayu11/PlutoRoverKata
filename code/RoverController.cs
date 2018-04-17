@@ -46,6 +46,7 @@ namespace Rover
                 if (terrain.IsAnObstacle(rover.X, rover.Y)) {
                     rover.X = previousX;
                     rover.Y = previousY;
+                    throw new ObstacleHitException("You've hit an obstacle!");
                 }
             }
         }
