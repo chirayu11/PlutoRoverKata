@@ -15,53 +15,17 @@ namespace Rover
         {
             foreach (var command in commands)
             {
+                var forwardCommand = new ForwardCommand();
+                var backwardCommand = new BackwardCommand();
                 switch (command)
                 {
                     case 'F':
-                        MoveForward();
+                        forwardCommand.Execute(rover);
                         break;
                     case 'B':
-                        MoveBackward();
+                        backwardCommand.Execute(rover);
                         break;
                 }
-            }
-        }
-
-        public void MoveForward()
-        {
-            switch (rover.Direction)
-            {
-                case Direction.North:
-                    rover.Y += 1;
-                    break;
-                case Direction.East:
-                    rover.X += 1;
-                    break;
-                case Direction.South:
-                    rover.Y -= 1;
-                    break;
-                case Direction.West:
-                    rover.X -= 1;
-                    break;
-            }
-        }
-
-        public void MoveBackward()
-        {
-            switch (rover.Direction)
-            {
-                case Direction.North:
-                    rover.Y -= 1;
-                    break;
-                case Direction.East:
-                    rover.X -= 1;
-                    break;
-                case Direction.South:
-                    rover.Y += 1;
-                    break;
-                case Direction.West:
-                    rover.X += 1;
-                    break;
             }
         }
     }
