@@ -75,5 +75,23 @@ namespace Rover.Tests
             Assert.AreEqual(expectedX, rover.X);
             Assert.AreEqual(expectedY, rover.Y);
         }
+
+        [TestCase("L", Direction.North, Direction.West)]
+        [TestCase("L", Direction.East, Direction.North)]
+        [TestCase("L", Direction.South, Direction.East)]
+        [TestCase("L", Direction.West, Direction.South)]
+        public void TurnLeftOrRight_ChangesDirectionFacingCorrectly(
+                        string command, Direction start, Direction expected)
+        {
+            // Given
+            var rover = new Rover(0, 0, start);
+            var roverController = new RoverController(rover);
+
+            // When
+            roverController.Execute(command);
+
+            // Then
+            Assert.AreEqual(expected, rover.Direction);
+        }
     }
 }

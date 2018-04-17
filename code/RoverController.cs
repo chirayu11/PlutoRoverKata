@@ -17,6 +17,8 @@ namespace Rover
             {
                 var forwardCommand = new ForwardCommand();
                 var backwardCommand = new BackwardCommand();
+                var turnLeftCommand = new TurnLeftCommand();
+
                 switch (command)
                 {
                     case 'F':
@@ -24,6 +26,9 @@ namespace Rover
                         break;
                     case 'B':
                         backwardCommand.Execute(rover);
+                        break;
+                    case 'L':
+                        turnLeftCommand.Execute(rover);
                         break;
                 }
             }
