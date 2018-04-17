@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Rover
 {
@@ -6,11 +7,13 @@ namespace Rover
     {
         private Rover rover;
         private Terrain terrain;
+        private IDictionary<char, IRoverCommand> commandLookup;
 
-        public RoverController(Rover rover, Terrain terrain)
+        public RoverController(Rover rover, Terrain terrain, IDictionary<char, IRoverCommand> commandLookup)
         {
             this.rover = rover;
             this.terrain = terrain;
+            this.commandLookup = commandLookup;
         }
 
         public void Execute(string commands)
@@ -20,28 +23,8 @@ namespace Rover
                 var previousX = rover.X;
                 var previousY = rover.Y;
 
-                var forwardCommand = new ForwardCommand();
-                var backwardCommand = new BackwardCommand();
-                var turnLeftCommand = new TurnLeftCommand();
-                var turnRightCommand = new TurnRightCommand();
-                var wrapCommand = new WrapCommand(terrain);
-
-                switch (command)
-                {
-                    case 'F':
-                        forwardCommand.Execute(rover);
-                        break;
-                    case 'B':
-                        backwardCommand.Execute(rover);
-                        break;
-                    case 'L':
-                        turnLeftCommand.Execute(rover);
-                        break;
-                    case 'R':
-                        turnRightCommand.Execute(rover);
-                        break;
-                }
-                wrapCommand.Execute(rover);
+                commandLookup[command].Execute(rover);
+                commandLookup['W'].Execute(rover); // wrap if necessary
                 
                 if (terrain.IsAnObstacle(rover.X, rover.Y)) {
                     rover.X = previousX;

@@ -28,7 +28,8 @@ namespace Rover.Tests
             // Given
             var rover = new Rover(0, 0, expected);
             var obstacles = Enumerable.Empty<Tuple<int, int>>();
-            var roverController = new RoverController(rover, new Terrain(10, 10, obstacles));
+            var terrain = new Terrain(10, 10, obstacles);
+            var roverController = new RoverController(rover, terrain, CommandLookup.Get(terrain));
 
             // When
             roverController.Execute(command);
@@ -51,7 +52,8 @@ namespace Rover.Tests
             // Given
             var rover = new Rover(startX, startY, facing);
             var obstacles = Enumerable.Empty<Tuple<int, int>>();
-            var roverController = new RoverController(rover, new Terrain(10, 10, obstacles));
+            var terrain = new Terrain(10, 10, obstacles);
+            var roverController = new RoverController(rover, terrain, CommandLookup.Get(terrain));
 
             // When
             roverController.Execute(command);
@@ -71,7 +73,8 @@ namespace Rover.Tests
             var rover = new Rover(expectedX, expectedY, Direction.North);
 
             var obstacles = Enumerable.Empty<Tuple<int, int>>();
-            var roverController = new RoverController(rover, new Terrain(10, 10, obstacles));
+            var terrain = new Terrain(10, 10, obstacles);
+            var roverController = new RoverController(rover, terrain, CommandLookup.Get(terrain));
 
             // When
             roverController.Execute(command);
@@ -95,7 +98,8 @@ namespace Rover.Tests
             // Given
             var rover = new Rover(0, 0, start);
             var obstacles = Enumerable.Empty<Tuple<int, int>>();
-            var roverController = new RoverController(rover, new Terrain(10, 10, obstacles));
+            var terrain = new Terrain(10, 10, obstacles);
+            var roverController = new RoverController(rover, terrain, CommandLookup.Get(terrain));
 
             // When
             roverController.Execute(command);
@@ -119,7 +123,8 @@ namespace Rover.Tests
             // Given
             var rover = new Rover(startX, startY, facing);
             var obstacles = Enumerable.Empty<Tuple<int, int>>();
-            var roverController = new RoverController(rover, new Terrain(terrainX, terrainY, obstacles));
+            var terrain = new Terrain(terrainX, terrainY, obstacles);
+            var roverController = new RoverController(rover, terrain, CommandLookup.Get(terrain));
 
             // When
             roverController.Execute(command);
@@ -144,7 +149,7 @@ namespace Rover.Tests
                                                                     Tuple.Create(2, 0), 
                                                                     Tuple.Create(2, 2)});
 
-            var roverController = new RoverController(rover, terrain);
+            var roverController = new RoverController(rover, terrain, CommandLookup.Get(terrain));
 
             // When and Then
             Assert.Throws<ObstacleHitException>(() => roverController.Execute(command));
