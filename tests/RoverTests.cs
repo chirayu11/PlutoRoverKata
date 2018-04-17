@@ -12,7 +12,7 @@ namespace Rover.Tests
         {
             get
             {
-                var allDirections = (Direction[]) Enum.GetValues(typeof(Direction));
+                var allDirections = (Direction[])Enum.GetValues(typeof(Direction));
                 foreach (var d in allDirections)
                 {
                     yield return new TestCaseData(d, "F");
@@ -80,6 +80,10 @@ namespace Rover.Tests
         [TestCase("L", Direction.East, Direction.North)]
         [TestCase("L", Direction.South, Direction.East)]
         [TestCase("L", Direction.West, Direction.South)]
+        [TestCase("R", Direction.North, Direction.East)]
+        [TestCase("R", Direction.East, Direction.South)]
+        [TestCase("R", Direction.South, Direction.West)]
+        [TestCase("R", Direction.West, Direction.North)]
         public void TurnLeftOrRight_ChangesDirectionFacingCorrectly(
                         string command, Direction start, Direction expected)
         {
