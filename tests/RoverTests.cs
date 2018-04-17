@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using Rover;
 
@@ -5,15 +7,21 @@ namespace Rover.Tests
 {
     public class RoverTests
     {
-        [TestCase(Direction.North, "F")]
-        [TestCase(Direction.East, "F")]
-        [TestCase(Direction.South, "F")]
-        [TestCase(Direction.West, "F")]
 
-        [TestCase(Direction.North, "B")]
-        [TestCase(Direction.East, "B")]
-        [TestCase(Direction.South, "B")]
-        [TestCase(Direction.West, "B")]
+        public static IEnumerable<TestCaseData> GetAllDirections
+        {
+            get
+            {
+                var allDirections = (Direction[]) Enum.GetValues(typeof(Direction));
+                foreach (var d in allDirections)
+                {
+                    yield return new TestCaseData(d, "F");
+                    yield return new TestCaseData(d, "B");
+                }
+            }
+        }
+        
+        [TestCaseSource("GetAllDirections")]
         public void MoveForwardBackward_DoesNotChangeDirection(Direction expected, string command)
         {
             // Given
