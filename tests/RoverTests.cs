@@ -99,6 +99,9 @@ namespace Rover.Tests
         }
 
         [TestCase("F", 2, 2, Direction.North, 3, 3, 2, 0)]
+        [TestCase("F", 2, 2, Direction.East, 3, 3, 0, 2)]
+        [TestCase("F", 2, 0, Direction.South, 3, 3, 2, 2)]
+        [TestCase("F", 0, 2, Direction.West, 3, 3, 2, 2)]
         public void MoveForwardBackward_WrapsAroundCorrectly(
             string command, int startX, int startY, Direction facing,
             int terrainX, int terrainY, int expectedX, int expectedY)
