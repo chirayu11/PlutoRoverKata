@@ -5,10 +5,12 @@ namespace Rover
     public class RoverController
     {
         private Rover rover;
+        private Terrain terrain;
 
-        public RoverController(Rover rover)
+        public RoverController(Rover rover, Terrain terrain)
         {
             this.rover = rover;
+            this.terrain = terrain;
         }
 
         public void Execute(string commands)
@@ -19,6 +21,7 @@ namespace Rover
                 var backwardCommand = new BackwardCommand();
                 var turnLeftCommand = new TurnLeftCommand();
                 var turnRightCommand = new TurnRightCommand();
+                var wrapCommand = new WrapCommand(terrain);
 
                 switch (command)
                 {
@@ -35,6 +38,7 @@ namespace Rover
                         turnRightCommand.Execute(rover);
                         break;
                 }
+                wrapCommand.Execute(rover);
             }
         }
     }

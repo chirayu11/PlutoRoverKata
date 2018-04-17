@@ -26,7 +26,7 @@ namespace Rover.Tests
         {
             // Given
             var rover = new Rover(0, 0, expected);
-            var roverController = new RoverController(rover);
+            var roverController = new RoverController(rover, new Terrain(10, 10));
 
             // When
             roverController.Execute(command);
@@ -48,7 +48,7 @@ namespace Rover.Tests
         {
             // Given
             var rover = new Rover(startX, startY, facing);
-            var roverController = new RoverController(rover);
+            var roverController = new RoverController(rover, new Terrain(10, 10));
 
             // When
             roverController.Execute(command);
@@ -66,7 +66,7 @@ namespace Rover.Tests
             var expectedX = 0;
             var expectedY = 0;
             var rover = new Rover(expectedX, expectedY, Direction.North);
-            var roverController = new RoverController(rover);
+            var roverController = new RoverController(rover, new Terrain(10, 10));
 
             // When
             roverController.Execute(command);
@@ -89,7 +89,7 @@ namespace Rover.Tests
         {
             // Given
             var rover = new Rover(0, 0, start);
-            var roverController = new RoverController(rover);
+            var roverController = new RoverController(rover, new Terrain(10, 10));
 
             // When
             roverController.Execute(command);
@@ -101,11 +101,11 @@ namespace Rover.Tests
         [TestCase("F", 2, 2, Direction.North, 3, 3, 2, 0)]
         public void MoveForwardBackward_WrapsAroundCorrectly(
             string command, int startX, int startY, Direction facing,
-            int sizeX, int sizeY, int expectedX, int expectedY)
+            int terrainX, int terrainY, int expectedX, int expectedY)
         {
             // Given
             var rover = new Rover(startX, startY, facing);
-            var roverController = new RoverController(rover);
+            var roverController = new RoverController(rover, new Terrain(terrainX, terrainY));
 
             // When
             roverController.Execute(command);
