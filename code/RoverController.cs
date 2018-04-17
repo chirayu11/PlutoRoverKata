@@ -17,6 +17,9 @@ namespace Rover
         {
             foreach (var command in commands)
             {
+                var previousX = rover.X;
+                var previousY = rover.Y;
+
                 var forwardCommand = new ForwardCommand();
                 var backwardCommand = new BackwardCommand();
                 var turnLeftCommand = new TurnLeftCommand();
@@ -39,6 +42,11 @@ namespace Rover
                         break;
                 }
                 wrapCommand.Execute(rover);
+                
+                if (terrain.IsAnObstacle(rover.X, rover.Y)) {
+                    rover.X = previousX;
+                    rover.Y = previousY;
+                }
             }
         }
     }

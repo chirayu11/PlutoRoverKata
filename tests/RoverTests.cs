@@ -131,6 +131,9 @@ namespace Rover.Tests
         }
 
         [TestCase("FF", 0, 0, Direction.North, 0, 1)]
+        [TestCase("FF", 1, 2, Direction.East, 1, 2)]
+        [TestCase("FF", 2, 1, Direction.South, 2, 1)]
+        [TestCase("FF", 1, 2, Direction.West, 1, 2)]
         public void MoveForwardBackward_MovesToLastPossiblePoint_IfItHitsAnObstacle(
             string command, int startX, int startY, Direction facing, int expectedX, int expectedY)
         {
