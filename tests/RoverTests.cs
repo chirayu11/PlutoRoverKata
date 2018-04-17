@@ -57,5 +57,23 @@ namespace Rover.Tests
             Assert.AreEqual(expectedX, rover.X);
             Assert.AreEqual(expectedY, rover.Y);
         }
+
+        [TestCase("L")]
+        [TestCase("R")]
+        public void TurnLeftOrRight_DoesNotChangeGridPosition(string command)
+        {
+            // Given
+            var expectedX = 0;
+            var expectedY = 0;
+            var rover = new Rover(expectedX, expectedY, Direction.North);
+            var roverController = new RoverController(rover);
+
+            // When
+            roverController.Execute(command);
+
+            // Then
+            Assert.AreEqual(expectedX, rover.X);
+            Assert.AreEqual(expectedY, rover.Y);
+        }
     }
 }
