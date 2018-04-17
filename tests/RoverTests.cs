@@ -144,9 +144,9 @@ namespace Rover.Tests
         {
             // Given
             var rover = new Rover(startX, startY, facing);
-            var terrain = new Terrain(3, 3, 
-                                      new List<Tuple<int, int>>() { Tuple.Create(0, 2), 
-                                                                    Tuple.Create(2, 0), 
+            var terrain = new Terrain(3, 3,
+                                      new List<Tuple<int, int>>() { Tuple.Create(0, 2),
+                                                                    Tuple.Create(2, 0),
                                                                     Tuple.Create(2, 2)});
 
             var roverController = new RoverController(rover, terrain, CommandLookup.Get(terrain));
@@ -156,6 +156,18 @@ namespace Rover.Tests
             Assert.AreEqual(expectedX, rover.X);
             Assert.AreEqual(expectedY, rover.Y);
             Assert.AreEqual(facing, rover.Direction);
+        }
+
+        [Test]
+        public void ExecuteThrows_IfInvalidCommandIsExecuted()
+        {
+            // Given
+            var rover = new Rover(0, 0, Direction.North);
+            var terrain = new Terrain(3, 3, Enumerable.Empty<Tuple<int, int>>());
+            var roverController = new RoverController(rover, terrain, CommandLookup.Get(terrain));
+
+            // When and Then
+            Assert.Throws<CommandNotFoundException>(() => roverController.Execute("E"));
         }
     }
 }
