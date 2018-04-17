@@ -97,5 +97,23 @@ namespace Rover.Tests
             // Then
             Assert.AreEqual(expected, rover.Direction);
         }
+
+        [TestCase("F", 2, 2, Direction.North, 3, 3, 2, 0)]
+        public void MoveForwardBackward_WrapsAroundCorrectly(
+            string command, int startX, int startY, Direction facing,
+            int sizeX, int sizeY, int expectedX, int expectedY)
+        {
+            // Given
+            var rover = new Rover(startX, startY, facing);
+            var roverController = new RoverController(rover);
+
+            // When
+            roverController.Execute(command);
+
+            // Then
+            Assert.AreEqual(expectedX, rover.X);
+            Assert.AreEqual(expectedY, rover.Y);
+            Assert.AreEqual(facing, rover.Direction);
+        }
     }
 }
