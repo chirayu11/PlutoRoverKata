@@ -4,20 +4,20 @@ namespace Rover
 {
     public class RoverController
     {
-        private Direction direction;
+        private Rover rover;
 
-        public RoverController(Direction direction)
+        public RoverController(Rover rover)
         {
-            this.direction = direction;
+            this.rover = rover;
         }
 
         public void Execute(string v)
         {
         }
 
-        public Direction GetDirection()
+        public Direction Direction()
         {
-            return direction;
+            return rover.Direction;
         }
     }
 }

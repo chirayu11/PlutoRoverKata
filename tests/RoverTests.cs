@@ -20,18 +20,38 @@ namespace Rover.Tests
                 }
             }
         }
-        
+
         [TestCaseSource("GetAllDirections")]
         public void MoveForwardBackward_DoesNotChangeDirection(Direction expected, string command)
         {
             // Given
-            var roverController = new RoverController(expected);
+            var rover = new Rover(0, 0, expected);
+            var roverController = new RoverController(rover);
 
             // When
             roverController.Execute(command);
 
             // Then
-            Assert.AreEqual(expected, roverController.GetDirection());
+            Assert.AreEqual(expected, rover.Direction);
+        }
+
+        [TestCase("F", 1, 1, Direction.North, 1, 2)]
+        [TestCase("F", 1, 1, Direction.East, 2, 1)]
+        [TestCase("F", 1, 1, Direction.South, 1, 0)]
+        [TestCase("F", 1, 1, Direction.West, 0, 1)]
+        public void MoveForwardBackward_MovesOneInTheCorrectDirection(
+                    string command, int startX, int startY, Direction facing, int expectedX, int expectedY)
+        {
+            // Given
+            var rover = new Rover(startX, startY, facing);
+            var roverController = new RoverController(rover);
+
+            // When
+            roverController.Execute(command);
+
+            // Then
+            Assert.AreEqual(expectedX, rover.X);
+            Assert.AreEqual(expectedY, rover.Y);
         }
     }
 }
