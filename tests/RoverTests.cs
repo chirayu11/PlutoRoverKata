@@ -1,13 +1,24 @@
 using NUnit.Framework;
+using Rover;
 
-namespace RoverTests
+namespace Rover.Tests
 {
     public class RoverTests
     {
-        [Test]
-        public void Test1()
+        [TestCase(Direction.North)]
+        [TestCase(Direction.East)]
+        [TestCase(Direction.South)]
+        [TestCase(Direction.West)]
+        public void MoveForward_DoesNotChangeDirection(Direction expected)
         {
-            Assert.Pass();
+            // Given
+            var roverController = new RoverController(expected);
+
+            // When
+            roverController.Execute("F");
+
+            // Then
+            Assert.AreEqual(expected, roverController.GetDirection());
         }
     }
 }
